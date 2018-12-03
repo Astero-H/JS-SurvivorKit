@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+
+    <title>Kit de Survie JS</title>
+    <meta name="description" content="">
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+    <style>
+        body{ font-family: 'Quicksand', sans-serif; }
+	</style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        //3)
+        $(document).ready(function () {
+            $('button').click(function () {
+                $.getScript('functions.php').done(function () {
+                    $input = $("#inputNum").val();
+                    $output = isPrime($input) ? "Est premier" : "N'est pas premier";
+                    $("#afficheReponse").text($output);
+                })
+            });
+        });
+
+       
+
+
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <button> Tester si le nombre est premier </button><br>
+
+    <input type="text" id="inputNum" value="">
+    <div id="afficheReponse"></div>
+</body>
+
+</html>

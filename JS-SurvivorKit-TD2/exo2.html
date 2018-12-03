@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="" media="screen">
+    <link rel="shortcut icon" href="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //a) b)
+
+            $('#button1').click(function() {
+                $('#content1').text('chargement');
+                 $('#content1').load('exo1.php #conteneur1');             
+                });
+
+
+            $('#button2').click(function () {
+                 $('#content2').text('chargement');
+                 $('#content2').load('exo1.php #conteneur2');
+                });
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <div id="div_button">
+        <button id="button1"> Bouton 1</button>
+        <button id="button2"> Bouton 2</button>
+    </div>
+
+    <div id="content1">
+    </div>
+
+    <div id="content2">
+    </div>
+</body>
+
+</html>

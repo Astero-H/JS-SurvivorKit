@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/angular.min.js"></script>
+</head>
+
+<body>
+    <ul></ul>
+    <div ng-app="app1" ng-controller="controlleur1">
+    </div>
+
+    <script>
+        var app = angular.module("app1", []);
+        app.controller("controlleur1", function ($scope, $http) {
+            $url = "https://raw.githubusercontent.com/fanzeyi/Pokemon-DB/master/pokedex.json";
+
+            $http.get($url).then(function (response) {
+                $reponse = response.data;
+                //console.log($reponse);
+
+                $reponse.forEach(function (element) {
+                    //console.log(element.ename);
+                    $('ul').append('<li>' + element.ename + ' </li>');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

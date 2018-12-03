@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="js/angular.min.js"></script>
+</head>
+
+<body>
+    <div ng-app="app1" ng-controller="controlleur1">
+        Nombre1 <input type="text" ng-model="nb1">
+        Nombre2 <input type="text" ng-model="nb2">
+        <select ng-model="operator">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+        </select>
+
+        <p> Resultat = {{calculer(nb1,nb2,operator)}} </p>
+
+    </div>
+
+    <script>
+        var app = angular.module("app1", []);
+        app.controller("controlleur1", function ($scope) {
+
+            $scope.calculer = function (nb1, nb2, operator) {
+                if (nb1 == null || nb2 == null || operator == null) {
+                    return;
+                }
+                else {
+                    return eval(parseInt(nb1) + operator + parseInt(nb2));
+                }
+
+            };
+        });
+    </script>
+</body>
+
+
+
+</html>

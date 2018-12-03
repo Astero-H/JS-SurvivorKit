@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TodoList</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+
+    <style>
+        .done-true{
+            text-decoration: line-through;
+            color:dimgrey;
+        }
+    </style>
+</head>
+
+<body>
+    <ul></ul>
+    <div ng-app="app1" ng-controller="toDoController">
+        <h2>Total: {{getTotalTodos()}}</h2>
+
+        <ul class="list">
+            <li ng-repeat="todo in todos">
+                <input type="checkbox" ng-model="todo.done">
+                <span class="done-{{todo.done}}">{{todo.text}}</span>
+            </li>
+        </ul>
+
+        <form class="">
+            <input type="text" ng-model="formTodo" ng-model-instant>
+            <button type="button" ng-click="addTodo()">Ajouter</button>
+        </form>
+
+
+        <button type="button" ng-click="clearDone()"> Nettoyer la liste</button>
+
+
+    </div>
+
+    <script>
+        var app = angular.module("app1", []);
+        app.controller("toDoController", function ($scope) {
+            $scope.todos = [
+                { text: 'Avoir une bonne note en JS', done: false },
+                { text: 'Sortir les poubelles', done: false }
+            ];
+
+            $scope.getTotalTodos = function () {
+                return $scope.todos.length;
+            }
+
+            $scope.addTodo = function () {
+                $scope.todos.push({ text: $scope.formTodo, done: false });
+                $scope.formTodo = "";
+            }
+
+            $scope.clearDone = function () {
+                $scope.todos = _.filter($scope.todos, function (todo) {
+                    return !todo.done;
+                })
+            }
+        });
+    </script>
+</body>
+
+</html>

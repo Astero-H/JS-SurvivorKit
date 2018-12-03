@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<head>
+
+	<meta charset="utf-8" />
+
+	<title>Kit de Survie JS</title>
+	<meta name="description" content="">
+
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+
+	<style>
+		body{ font-family: 'Quicksand', sans-serif; 
+    		margin: 0; }
+
+    	.leftPanel{
+    		float: left;
+    		width: 200px;
+    		padding: 25px;
+    		background-color: #F9F9F9;
+    	}
+
+    	.leftPanel input[type=text]{   width: 178px; border: 1px solid #C1C2CC; padding: 10px; font-size: 16px; }
+    	.leftPanel input[type=submit]{ width: 200px; border: none; background-color: orange; color: white; padding: 10px; margin-top: 10px; text-transform: uppercase; font-size: 14px;}
+    	.leftPanel input[type=submit]:hover{ cursor: pointer; }
+    	.leftPanel form{ border-bottom: 1px solid #F1F1F1; padding-bottom: 10px; margin-bottom: 10px;}
+
+    	.leftPanel a{color: #00008B; }
+
+		.col-md-1{width: 140px;}
+
+    	.centerPanel{padding: 25px; margin-left: 250px; }
+	</style>
+
+	<script src="jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			$i = 0;
+			$(':submit').click(function (e) {
+				e.preventDefault();
+				$city = $("[name='search']").val();
+				$url = "https://www.metaweather.com/api/location/search/?query=" + $city;
+
+				$.getJSON($url, function (data) {
+					$result = data[0];
+					$("a:eq(" + $i + ")").text($result.title).attr('data-id', $result.woeid);
+					$i++;
+				});
+			})
+
+			$('a').click(function (e) {
+
+				e.preventDefault();
+				$('.container').empty();
+				$id = $(this).attr('data-id');
+				$urlLocation = "https://www.metaweather.com/api/location/" + $id;
+
+				$.getJSON($urlLocation, function (data) {
+
+					$dayMeteo = data['consolidated_weather'];
+					console.log($dayMeteo);
+					$imgIDs = [];
+					$i = 0;
+					$.each($dayMeteo, function (i, field) {
+						$('.container').append("<div class='col-md-1'>" +
+							"<p><b>" + field.applicable_date + "</b> </p>" +
+							"<img src=''/>" +
+							"<p>" + field.weather_state_name + " </p>" +
+							"<p> Min: " + parseInt(field.min_temp) + " </p>" +
+							"<p> Max: " + parseInt(field.max_temp) + " </p>" +
+							"<p> Wind: " + parseInt(field.wind_speed) + " </p>" +
+							"</div>");
+						$imgIDs.push(field.weather_state_abbr);
+					});
+
+					$imgIDs.forEach(function (element) {
+						console.log(element);
+						$("img:eq(" + $i + ")").attr('src', 'https://www.metaweather.com/static/img/weather/ico/' + element + '.ico');
+						$i++;
+					})
+				})
+			})
+		});
+
+	</script>
+</head>
+
+<body>
+	<div class="leftPanel">
+		<form action="#">
+			<input type="text" name="search" placeholder="Bordeaux, London ..." />
+			<input type="submit" value="Rechercher" />
+		</form>
+		Résultats:
+		<ul>
+			<li><a href="#" data-id="X">Résultat 1</a></li>
+			<li><a href="#" data-id="X">Résultat 2</a></li>
+			<li><a href="#" data-id="X">Résultat 3</a></li>
+			<li><a href="#" data-id="X">Résultat 4</a></li>
+		</ul>
+	</div>
+
+	<div class="container">
+		Résultat
+	</div>
+</body>
+
+</html>

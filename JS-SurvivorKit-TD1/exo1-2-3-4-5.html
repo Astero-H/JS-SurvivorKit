@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Exercices Objets JS TD1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+
+<body>
+    <script>
+        //Exercice 1
+        var etudiant = {
+            nom: "Ma",
+            prenom: "Yo-Yo",
+            numEtudiant: 10,
+            dateNaissance: [07, 10, 1955],
+            presenter: function () {
+                console.log("Nom: " + this.nom + "\n" + "Prenom: " + this.prenom + "\n" + "Numéro: " + this.numEtudiant + "\n" +
+                    "Date de naissance: " + this.dateNaissance[0] + "/" + this.dateNaissance[1] + "/" + this.dateNaissance[2] + "\n ------");
+            }
+        }
+        etudiant.presenter();
+
+        //Exercice 2
+        function Etudiant(nom, prenom, numEtudiant, dateNaissance) {
+            this.nom = nom;
+            this.prenom = prenom;
+            this.numEtudiant = numEtudiant;
+            this.dateNaissance = dateNaissance;
+
+            this.presenter = function () {
+                console.log("Nom: " + this.nom + "\n" +
+                    "Prénom: " + this.prenom + "\n" +
+                    "Numéro: " + this.numEtudiant + "\n" +
+                    "Date de naissance: " + this.dateNaissance[0] + "/" + this.dateNaissance[1] + "/" + this.dateNaissance[2] + "\n" +
+                    "Age: " + this.age() + " ans \n  ------");
+            };
+
+            this.age = function () {
+                var date = new Date;
+                return age = date.getFullYear() - this.dateNaissance[2];
+            };
+        }
+        var etd1 = new Etudiant("Schrödinger", "Erwin", 1, ["12", "08", "1887"]);
+        var etd2 = new Etudiant("Bohr", "Niels", 2, ["07", "10", "1885"]);
+        etd1.presenter();
+        etd1.age();
+        etd2.presenter();
+        etd2.age();
+
+        //Exercice 3 et 4
+        var Personne = {
+            nom: "",
+            prenom: "",
+            dateNaissance: [],
+
+            init: function (nom, prenom, dateNaissance, taille) {
+                this.nom = nom;
+                this.prenom = prenom;
+                this.dateNaissance = dateNaissance;
+                this.taille = taille;
+            },
+
+            decrire: function () {
+                console.log(
+                    "Nom: " + this.nom + "\n" +
+                    "Prénom: " + this.prenom + "\n" +
+                    "Date de naissance: " + this.dateNaissance[0] + "/" + this.dateNaissance[1] + "/" + this.dateNaissance[2] + "\n" +
+                    "Mail: " + this.mailProfesseur + "\n" +
+                    "Taille: " + this.taille + "\n" +
+                    "Age: " + this.direAge()
+                );
+            },
+
+            direAge: function () {
+                var date = new Date;
+                return age = date.getFullYear() - this.dateNaissance[2];
+            }
+        };
+        var Professeur = Object.create(Personne);
+        Professeur.initProfesseur = function (nom, prenom, dateNaissance, mailProfesseur, taille) {
+            this.init(nom, prenom, dateNaissance, taille);
+            this.mailProfesseur = mailProfesseur;
+        }
+        var prof = Object.create(Professeur);
+        prof.initProfesseur("Darwin", "Charles", [12, 02, 1809], "charles.darwin@evo.com");
+        prof.decrire();
+        // La classe professeur n'hérite pas de l'attribut taille. Il faudrait changer l'ordre des arguments (entre mailProfesseur et taille) 
+        // dans la fonction initProfesseur de la classe Professeur.
+
+        //Exercice 5
+        console.log(
+            "Nombre de balises a :" + $('a').length + "\n" +
+            "Nombre de balises p de classe paragraphe :" + $('.paragraphe').length + "\n" +
+            "Nombre d'input dont le type n'est pas texte :" + $('input[type!="text"]').length + "\n" +
+            "Nombre de liste ul contenant plus de 2 éléments :" + $("ul li:nth-child(3)").length
+        );
+    </script>
+</body>
+
+</html>

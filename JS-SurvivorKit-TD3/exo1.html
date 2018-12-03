@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            margin: 0;
+            width: 300px;
+            height: 300px;
+            border: 2px solid #000;
+            text-align: center;
+        }
+
+        #container2 {
+            position: absolute;
+            top: 0;
+            right: 50%;
+            width: 300px;
+            height: 300px;
+            border: 2px solid grey;
+            text-align: center;
+        }
+
+        #content {
+            width: 100px;
+            background-color: red;
+        }
+
+        #position {
+            position: relative;
+            border: 2px solid red;
+            top: 100%;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#content")
+                .mousedown(function () {
+                    $(this).draggable({
+                        containment: "#container",
+                        cursor: "pointer"
+                    });
+                })
+
+                .mousemove(function () {
+                    $('#position').text("Left:" + $(this).position().left +
+                        " | Top:" + $(this).position().top);
+                })
+
+                .mouseup(function () {
+                    $(this).draggable() = false;
+                    
+                });
+                
+                $('button').click(function(){
+                    $('#getList').text($('li').text());
+                })
+        });
+
+        $(function () {
+            $("#sortable").sortable();
+        });
+    </script>
+</head>
+
+<body>
+    <div id="container"> CONTAINER
+        <div id="content"> content</div>
+        <div id="position"></div>
+    </div>
+
+    <div id="container2"> CONTAINER 2
+        <ul id="sortable">
+            <li>Element 1</li>
+            <li>Element 2</li>
+            <li>Element 3</li>
+            <li>Element 4</li>
+        </ul>
+
+        <button type="button"> Get Order </button>
+        <div id="getList"></div>
+    </div>
+</body>
+
+</html>
